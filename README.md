@@ -1,2 +1,2 @@
 # pair-kata
-Pair Kata
+Pair Kata & Dojo
