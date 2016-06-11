@@ -1,2 +1,2 @@
-# Cash Register Pair-kata
-Pair Kata & Dojo for Cash Register simulation
+# POS Simulation in Java
+Pair Kata & Dojo for POS simulation
