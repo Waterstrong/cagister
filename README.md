@@ -1,2 +1,2 @@
-# pair-kata
-Pair Kata & Dojo
+# Cash Register Pair-kata
+Pair Kata & Dojo for Cash Register simulation
