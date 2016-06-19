@@ -7,11 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Service;
-
 import tw.dojo.pos.domain.Item;
 
-@Service
 public class PosDataParser {
 
     private static final String SPLIT_CHAR = "-";

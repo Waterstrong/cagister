@@ -81,32 +81,3 @@ Already used the H2 embedded database, no need to follow below steps:
 No need to build image
 
 #### Using Docker Compose (not adding yet)
-Firstly, goto the docker directory:
-`cd infrastructure`
-
-Run Docker Compose:
-`docker-compose up`
-
-If want to run in background:
-`docker-compose up -d`
-
-Check the status:
-`docker-compose ps`
-
-Stop docker services:
-`docker-compose stop`
-
-View the logs (press CTRL+C to exit):
-`docker-compose logs`
-
-Kill the containers and remove them:
-```
-docker-compose kill
-docker-compose rm -f
-```
-
-More options:
-`docker-compose --help`
-
-If on Mac and using default docker-machine, try to hit:
-[http://192.168.99.100:8080/cagister/swagger-ui.html](http://192.168.99.100:8080/cagister/swagger-ui.html)
