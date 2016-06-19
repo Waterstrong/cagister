@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  context-path: /cagister
+
+spring:
+  datasource: # Database properties
+    url: jdbc:mysql://dev.db.tw:3306/cagisterdb?serverTimezone=UTC&useSSL=true
+    username: sa
+    password: 123456
+    #driverClassName: com.mysql.cj.jdbc.Driver
+  jpa: # JPA configuration
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    #database-platform: org.hibernate.dialect.MySQL5Dialect
+
+
+flyway: # Flyway properties
+  url: ${spring.datasource.url}
+  user: ${spring.datasource.username}
+  password: ${spring.datasource.password}
+  #driver = ${spring.datasource.driverClassName}

@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS cagisterdb;
+CREATE DATABASE cagisterdb DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;

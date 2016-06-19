@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  context-path: /cagister
+
+spring:
+  datasource: # Database properties
+    url: jdbc:h2:./.tmp/cagisterdb
+    username: sa
+    password:
+  jpa: # JPA configuration
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+flyway: # Flyway properties
+  url: ${spring.datasource.url}
+  user: ${spring.datasource.username}
+  password: ${spring.datasource.password}
