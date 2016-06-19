@@ -46,10 +46,6 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 idea.project.vcs = "Git"
 
-flyway {
-    url = 'jdbc:h2:./.tmp/cagisterdb'
-    user = 'sa'
-}
 
 sourceSets {
     main {
