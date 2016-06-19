@@ -7,15 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tw.dojo.pos.domain.Goods;
 import tw.dojo.pos.domain.Item;
-import tw.dojo.pos.entity.Goods;
-import tw.dojo.pos.repository.ItemRepository;
+import tw.dojo.pos.repository.GoodsRepository;
 
 @Service
 public class DefaultItemService implements ItemService {
 
     @Autowired
-    private ItemRepository itemRepository;
+    private GoodsRepository goodsRepository;
 
     @Override
     public List<Item> calculateItems(List<Item> items) {
@@ -24,7 +24,7 @@ public class DefaultItemService implements ItemService {
 
     private Item calculate(final Item item) {
         String barcode = item.getBarcode();
-        Goods goods = itemRepository.findOne(barcode);
+        Goods goods = goodsRepository.findOne(barcode);
         Item calculatedItem = new Item(barcode, item.getAmount());
         calculatedItem.setPrice(goods.getPrice());
         calculatedItem.setName(goods.getName());

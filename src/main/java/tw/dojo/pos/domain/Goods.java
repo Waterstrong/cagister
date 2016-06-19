@@ -1,4 +1,4 @@
-package tw.dojo.pos.entity;
+package tw.dojo.pos.domain;
 
 public class Goods {
     private String barcode;
@@ -7,6 +7,10 @@ public class Goods {
     private String category;
     private String subCategory;
     private Double price;
+
+    public Goods(String barcode) {
+        this.barcode = barcode;
+    }
 
     public String getName() {
         return name;

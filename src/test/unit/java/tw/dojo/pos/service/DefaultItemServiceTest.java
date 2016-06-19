@@ -13,9 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import tw.dojo.pos.domain.Goods;
 import tw.dojo.pos.domain.Item;
-import tw.dojo.pos.entity.Goods;
-import tw.dojo.pos.repository.ItemRepository;
+import tw.dojo.pos.repository.GoodsRepository;
 
 public class DefaultItemServiceTest {
 
@@ -23,7 +23,7 @@ public class DefaultItemServiceTest {
     private DefaultItemService itemService;
 
     @Mock
-    private ItemRepository itemRepository;
+    private GoodsRepository goodsRepository;
 
     @Before
     public void setUp() {
@@ -39,8 +39,8 @@ public class DefaultItemServiceTest {
         List<Item> items = asList(new Item(coloBarcode, coloAmount), new Item(appleBarcode, appleAmount));
         Goods colo = createGoods(coloBarcode, "可口可乐", "瓶", 3.0);
         Goods apple = createGoods(appleBarcode, "苹果", "斤", 5.5);
-        when(itemRepository.findOne(coloBarcode)).thenReturn(colo);
-        when(itemRepository.findOne(appleBarcode)).thenReturn(apple);
+        when(goodsRepository.findOne(coloBarcode)).thenReturn(colo);
+        when(goodsRepository.findOne(appleBarcode)).thenReturn(apple);
 
         List<Item> calculatedItems = itemService.calculateItems(items);
 
@@ -60,8 +60,7 @@ public class DefaultItemServiceTest {
     }
 
     private Goods createGoods(String barcode, String name, String unit, Double price) {
-        Goods goods = new Goods();
-        goods.setBarcode(barcode);
+        Goods goods = new Goods(barcode);
         goods.setName(name);
         goods.setUnit(unit);
         goods.setPrice(price);
