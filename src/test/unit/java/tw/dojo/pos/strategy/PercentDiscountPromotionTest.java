@@ -1,4 +1,4 @@
-package tw.dojo.pos.service;
+package tw.dojo.pos.strategy;
 
 import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
@@ -12,9 +12,8 @@ import org.mockito.Mock;
 
 import tw.dojo.pos.domain.Item;
 import tw.dojo.pos.repository.PercentDiscountRepository;
-import tw.dojo.pos.strategy.PercentDiscountPromotion;
 
-public class PercentDiscountServiceTest {
+public class PercentDiscountPromotionTest {
 
     @InjectMocks
     private PercentDiscountPromotion promotionService;
