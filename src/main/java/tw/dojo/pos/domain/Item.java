@@ -21,7 +21,11 @@ public class Item extends Goods {
         return benefit;
     }
 
-    public Double getSubtotal() {
-        return getPrice() * getAmount() - getBenefit();
+    public Double calculateSubtotal() {
+        return calculateTotal() - getBenefit();
+    }
+
+    public Double calculateTotal() {
+        return getPrice() * getAmount();
     }
 }

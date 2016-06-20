@@ -12,7 +12,8 @@ public class ItemTest {
         item.setPrice(3.0);
         item.setBenefit(0.0);
 
-        assertThat(item.getSubtotal(), is(9.0));
+        assertThat(item.calculateSubtotal(), is(9.0));
+        assertThat(item.calculateTotal(), is(9.0));
     }
 
     @Test
@@ -21,6 +22,7 @@ public class ItemTest {
         item.setPrice(3.0);
         item.setBenefit(1.5);
 
-        assertThat(item.getSubtotal(), is(7.5));
+        assertThat(item.calculateSubtotal(), is(7.5));
+        assertThat(item.calculateTotal(), is(9.0));
     }
 }
