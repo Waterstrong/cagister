@@ -1,7 +1,7 @@
-package tw.dojo.pos.service;
+package tw.dojo.pos.strategy;
 
 import tw.dojo.pos.domain.Item;
 
-public interface PromotionService {
+public interface Promotion {
     Double calculateBenefit(final Item item);
 }

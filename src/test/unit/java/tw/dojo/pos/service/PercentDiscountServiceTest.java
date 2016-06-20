@@ -11,13 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import tw.dojo.pos.domain.Item;
-import tw.dojo.pos.domain.PercentDiscount;
 import tw.dojo.pos.repository.PercentDiscountRepository;
+import tw.dojo.pos.strategy.PercentDiscount;
 
 public class PercentDiscountServiceTest {
 
     @InjectMocks
-    private PercentDiscountService promotionService;
+    private PercentDiscount promotionService;
 
     @Mock
     private PercentDiscountRepository promotionRepository;
@@ -32,7 +32,7 @@ public class PercentDiscountServiceTest {
         String barcode = "123456";
         Item item = new Item(barcode, 3);
         item.setPrice(3.0);
-        when(promotionRepository.findOne(barcode)).thenReturn(new PercentDiscount(95));
+        when(promotionRepository.findOne(barcode)).thenReturn(new tw.dojo.pos.domain.PercentDiscount(95));
 
         Double benefit = promotionService.calculateBenefit(item);
 
