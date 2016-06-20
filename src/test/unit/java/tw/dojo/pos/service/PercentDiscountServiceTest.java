@@ -12,12 +12,12 @@ import org.mockito.Mock;
 
 import tw.dojo.pos.domain.Item;
 import tw.dojo.pos.repository.PercentDiscountRepository;
-import tw.dojo.pos.strategy.PercentDiscount;
+import tw.dojo.pos.strategy.PercentDiscountPromotion;
 
 public class PercentDiscountServiceTest {
 
     @InjectMocks
-    private PercentDiscount promotionService;
+    private PercentDiscountPromotion promotionService;
 
     @Mock
     private PercentDiscountRepository promotionRepository;
