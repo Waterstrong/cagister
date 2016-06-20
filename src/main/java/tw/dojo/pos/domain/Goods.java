@@ -24,10 +24,6 @@ public class Goods {
         return unit;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
     public void setName(String name) {
         this.name = name;
     }

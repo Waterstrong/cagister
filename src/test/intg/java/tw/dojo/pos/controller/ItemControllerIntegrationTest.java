@@ -1,18 +1,16 @@
 package tw.dojo.pos.controller;
 
-import static java.util.Arrays.asList;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-import java.util.List;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tw.dojo.pos.BaseIntegrationTest;
+import tw.dojo.pos.domain.Goods;
 import tw.dojo.pos.repository.GoodsRepository;
 
 public class ItemControllerIntegrationTest extends BaseIntegrationTest {
@@ -27,22 +25,33 @@ public class ItemControllerIntegrationTest extends BaseIntegrationTest {
         mockMvc = standaloneSetup(itemController).build();
     }
 
-    @Ignore
     @Test
     public void should_calculate_items_given_input_list() throws Exception {
-        List<String> inputs = asList(
-                "ITEM000001",
-                "ITEM000001",
-                "ITEM000001",
-                "ITEM000001",
-                "ITEM000001",
-                "ITEM000003-2",
-                "ITEM000005",
-                "ITEM000005",
-                "ITEM000005");
+        goodsRepository.save(createGoods("ITEM000001", "苹果", "斤", 3.0));
+        goodsRepository.save(createGoods("ITEM000003", "可口可乐", "瓶", 2.5));
+        goodsRepository.save(createGoods("ITEM000005", "蓝球", "wh", 99.0));
+        String inputs = "[\"ITEM000001\", " +
+                        "\"ITEM000001\", " +
+                        "\"ITEM000001\", " +
+                        "\"ITEM000001\", " +
+                        "\"ITEM000001\", " +
+                        "\"ITEM000003-2\", " +
+                        "\"ITEM000005\", " +
+                        "\"ITEM000005\", " +
+                        "\"ITEM000005\"]";
 
-        mockMvc.perform(get("/items"))
+        mockMvc.perform(post("/items")
+                .contentType(APPLICATION_JSON)
+                .content(inputs))
                 .andExpect(status().isOk());
 
+    }
+
+    private Goods createGoods(String barcode, String name, String unit, Double price) {
+        Goods goods = new Goods(barcode);
+        goods.setName(name);
+        goods.setPrice(price);
+        goods.setUnit(unit);
+        return goods;
     }
 }

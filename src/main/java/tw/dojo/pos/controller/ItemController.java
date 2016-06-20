@@ -1,7 +1,7 @@
 package tw.dojo.pos.controller;
 
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static tw.dojo.pos.util.PosDataParser.parse;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping(method = GET, value = "/items")
+    @RequestMapping(method = POST, value = "/items")
     public ResponseEntity<?> calculateItems(@RequestBody List<String> inputs) {
         List<Item> calculatedItems = itemService.calculateItems(parse(inputs));
         return new ResponseEntity<>(new ItemResponse(calculatedItems), OK);
