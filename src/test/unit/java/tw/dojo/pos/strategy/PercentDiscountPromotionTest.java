@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import tw.dojo.pos.domain.Item;
+import tw.dojo.pos.domain.PercentDiscount;
 import tw.dojo.pos.repository.PercentDiscountRepository;
 
 public class PercentDiscountPromotionTest {
@@ -31,10 +32,22 @@ public class PercentDiscountPromotionTest {
         String barcode = "123456";
         Item item = new Item(barcode, 3);
         item.setPrice(3.0);
-        when(promotionRepository.findOne(barcode)).thenReturn(new tw.dojo.pos.domain.PercentDiscount(95));
+        when(promotionRepository.findOne(barcode)).thenReturn(new PercentDiscount(95));
 
         Double benefit = promotionService.calculateBenefit(item);
 
         assertThat(benefit, closeTo(0.45, 0.000001));
+    }
+
+    @Test
+    public void should_discount_benefit_be_zero_if_goods_is_not_in_promotion() {
+        String barcode = "123456";
+        Item item = new Item(barcode, 3);
+        item.setPrice(3.0);
+        when(promotionRepository.findOne(barcode)).thenReturn(null);
+
+        Double benefit = promotionService.calculateBenefit(item);
+
+        assertThat(benefit, closeTo(0.0, 0.000001));
     }
 }

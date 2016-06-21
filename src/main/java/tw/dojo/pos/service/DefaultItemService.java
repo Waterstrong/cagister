@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 import tw.dojo.pos.domain.Goods;
 import tw.dojo.pos.domain.Item;
 import tw.dojo.pos.repository.GoodsRepository;
+import tw.dojo.pos.strategy.IPromotion;
 
 @Service
 public class DefaultItemService implements ItemService {
 
     @Autowired
     private GoodsRepository goodsRepository;
+
+    @Autowired
+    private IPromotion promotion;
 
     @Override
     public List<Item> calculateItems(List<Item> items) {
@@ -29,7 +33,7 @@ public class DefaultItemService implements ItemService {
         calculatedItem.setPrice(goods.getPrice());
         calculatedItem.setName(goods.getName());
         calculatedItem.setUnit(goods.getUnit());
-        calculatedItem.setBenefit(0.0);
+        calculatedItem.setBenefit(promotion.calculateBenefit(calculatedItem));
         return calculatedItem;
     }
 }
