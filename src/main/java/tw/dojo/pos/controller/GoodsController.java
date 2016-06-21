@@ -19,8 +19,7 @@ public class GoodsController {
 
     @RequestMapping(method = POST, value = "/goods")
     public ResponseEntity<?> saveGoods(@RequestBody Goods goods) {
-        goodsService.saveGoods(goods);
-        return new ResponseEntity<>(CREATED);
+        return new ResponseEntity<>(goodsService.saveGoods(goods), CREATED);
     }
 
 }

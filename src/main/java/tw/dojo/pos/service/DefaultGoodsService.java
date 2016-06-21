@@ -15,9 +15,9 @@ public class DefaultGoodsService implements GoodsService {
     private GoodsRepository goodsRepository;
 
     @Override
-    public void saveGoods(Goods goods) {
+    public Goods saveGoods(Goods goods) {
         notNull(goods, "Goods should not be null");
         notNull(goods.getBarcode(), "Barcode should not be null");
-        goodsRepository.save(goods);
+        return goodsRepository.save(goods);
     }
 }

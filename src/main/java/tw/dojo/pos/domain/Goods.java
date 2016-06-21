@@ -8,6 +8,9 @@ public class Goods {
     private String subCategory;
     private Double price;
 
+    public Goods() {
+    }
+
     public Goods(String barcode) {
         this.barcode = barcode;
     }
@@ -36,7 +39,27 @@ public class Goods {
         this.price = price;
     }
 
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
     public String getBarcode() {
         return barcode;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getSubCategory() {
+        return subCategory;
     }
 }

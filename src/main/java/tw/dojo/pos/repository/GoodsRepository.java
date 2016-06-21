@@ -15,7 +15,7 @@ public class GoodsRepository {
         return goodsMapper.get(barcode);
     }
 
-    public void save(Goods goods) {
-        goodsMapper.put(goods.getBarcode(), goods);
+    public Goods save(Goods goods) {
+        return goodsMapper.put(goods.getBarcode(), goods);
     }
 }
