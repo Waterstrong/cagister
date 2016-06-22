@@ -15,4 +15,8 @@ public class PercentDiscountRepository {
         return promotionMapper.get(barcode);
     }
 
+
+    public void save(PercentDiscount percentDiscount) {
+        promotionMapper.put(percentDiscount.getBarcode(), percentDiscount);
+    }
 }
