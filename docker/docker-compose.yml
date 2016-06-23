@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  pos:
+    image: java:8-jre-alpine
+    working_dir: /app
+    volumes:
+      - ../build/libs/:/app
+    command: java -jar /app/cagister-0.1.0.jar
+    container_name: post-node
+    hostname: cagister
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - pos-net
+
+networks:
+  pos-net:
+    driver: bridge
