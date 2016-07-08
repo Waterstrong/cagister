@@ -1,13 +1,10 @@
 package tw.dojo.pos.service;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.dojo.pos.domain.Goods;
 import tw.dojo.pos.domain.ShoppingItem;
 import tw.dojo.pos.repository.GoodsRepository;
 import tw.dojo.pos.strategy.IPromotion;
@@ -22,16 +19,14 @@ public class DefaultItemService implements ItemService {
     private IPromotion promotion;
 
     @Override
-    public List<ShoppingItem> calculateItems(List<ShoppingItem> items) {
-        return items.stream().map(item -> calculate(item)).collect(toList());
+    public List<ShoppingItem> calculateItems(final List<ShoppingItem> items) {
+        items.stream().forEach(item -> calculate(item));
+        return items;
     }
 
-    private ShoppingItem calculate(final ShoppingItem item) {
+    private void calculate(final ShoppingItem item) {
         String barcode = item.getBarcode();
-        Goods goods = goodsRepository.findOne(barcode);
-        ShoppingItem calculatedItem = new ShoppingItem(barcode, item.getAmount());
-        calculatedItem.setGoods(goods);
-        calculatedItem.setBenefit(promotion.calculateBenefit(calculatedItem));
-        return calculatedItem;
+        item.setGoods(goodsRepository.findOne(barcode));
+        item.setBenefit(promotion.calculateBenefit(item));
     }
 }
