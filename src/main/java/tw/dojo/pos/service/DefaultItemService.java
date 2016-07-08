@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.dojo.pos.domain.Goods;
-import tw.dojo.pos.domain.Item;
+import tw.dojo.pos.domain.ShoppingItem;
 import tw.dojo.pos.repository.GoodsRepository;
 import tw.dojo.pos.strategy.IPromotion;
 
@@ -22,17 +22,15 @@ public class DefaultItemService implements ItemService {
     private IPromotion promotion;
 
     @Override
-    public List<Item> calculateItems(List<Item> items) {
+    public List<ShoppingItem> calculateItems(List<ShoppingItem> items) {
         return items.stream().map(item -> calculate(item)).collect(toList());
     }
 
-    private Item calculate(final Item item) {
+    private ShoppingItem calculate(final ShoppingItem item) {
         String barcode = item.getBarcode();
         Goods goods = goodsRepository.findOne(barcode);
-        Item calculatedItem = new Item(barcode, item.getAmount());
-        calculatedItem.setPrice(goods.getPrice());
-        calculatedItem.setName(goods.getName());
-        calculatedItem.setUnit(goods.getUnit());
+        ShoppingItem calculatedItem = new ShoppingItem(barcode, item.getAmount());
+        calculatedItem.setGoods(goods);
         calculatedItem.setBenefit(promotion.calculateBenefit(calculatedItem));
         return calculatedItem;
     }

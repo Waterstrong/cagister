@@ -2,8 +2,8 @@ package tw.dojo.pos.service;
 
 import java.util.List;
 
-import tw.dojo.pos.domain.Item;
+import tw.dojo.pos.domain.ShoppingItem;
 
 public interface ItemService {
-    List<Item> calculateItems(List<Item> items);
+    List<ShoppingItem> calculateItems(List<ShoppingItem> items);
 }

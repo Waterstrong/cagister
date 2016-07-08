@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import tw.dojo.pos.domain.Goods;
-import tw.dojo.pos.domain.Item;
+import tw.dojo.pos.domain.ShoppingItem;
 import tw.dojo.pos.repository.GoodsRepository;
 import tw.dojo.pos.strategy.IPromotion;
 
@@ -42,14 +42,16 @@ public class DefaultItemServiceTest {
         String appleBarcode = "ITEM000002";
         int coloAmount = 3;
         int appleAmount = 2;
-        List<Item> items = asList(new Item(coloBarcode, coloAmount), new Item(appleBarcode, appleAmount));
+        List<ShoppingItem> items = asList(
+                new ShoppingItem(coloBarcode, coloAmount),
+                new ShoppingItem(appleBarcode, appleAmount));
         Goods colo = createGoods(coloBarcode, "可口可乐", "瓶", 3.0);
         Goods apple = createGoods(appleBarcode, "苹果", "斤", 5.5);
         when(goodsRepository.findOne(coloBarcode)).thenReturn(colo);
         when(goodsRepository.findOne(appleBarcode)).thenReturn(apple);
         when(promotion.calculateBenefit(anyObject())).thenReturn(0.0);
 
-        List<Item> calculatedItems = itemService.calculateItems(items);
+        List<ShoppingItem> calculatedItems = itemService.calculateItems(items);
 
         assertThat(calculatedItems.size(), is(2));
         assertCalculatedItem(calculatedItems.get(0), colo, coloAmount, 0.0);
@@ -60,25 +62,23 @@ public class DefaultItemServiceTest {
     public void should_return_calculated_items_benefit_when_promotion_applied() {
         String appleBarcode = "ITEM000002";
         int appleAmount = 2;
-        Item appleItem = new Item(appleBarcode, appleAmount);
-        List<Item> items = asList(appleItem);
+        ShoppingItem appleItem = new ShoppingItem(appleBarcode, appleAmount);
+        List<ShoppingItem> items = asList(appleItem);
         Goods apple = createGoods(appleBarcode, "苹果", "斤", 5.5);
         when(goodsRepository.findOne(appleBarcode)).thenReturn(apple);
         when(promotion.calculateBenefit(anyObject())).thenReturn(0.45);
 
-        List<Item> calculatedItems = itemService.calculateItems(items);
+        List<ShoppingItem> calculatedItems = itemService.calculateItems(items);
 
         assertThat(calculatedItems.size(), is(1));
         assertCalculatedItem(calculatedItems.get(0), apple, appleAmount, 0.45);
     }
 
-    private void assertCalculatedItem(Item actualItem, Goods expectedGoods,
+    private void assertCalculatedItem(ShoppingItem actualItem, Goods expectedGoods,
                                       Integer expectedAmount, Double expectedBenefit) {
         assertThat(actualItem.getBarcode(), is(expectedGoods.getBarcode()));
-        assertThat(actualItem.getName(), is(expectedGoods.getName()));
+        assertThat(actualItem.getGoods(), is(expectedGoods));
         assertThat(actualItem.getAmount(), is(expectedAmount));
-        assertThat(actualItem.getUnit(), is(expectedGoods.getUnit()));
-        assertThat(actualItem.getPrice(), is(expectedGoods.getPrice()));
         assertThat(actualItem.getBenefit(), closeTo(expectedBenefit, 0.00001));
     }
 

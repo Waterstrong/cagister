@@ -18,14 +18,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 
-import tw.dojo.pos.domain.Item;
-import tw.dojo.pos.domain.ItemResponse;
+import tw.dojo.pos.domain.Receipt;
+import tw.dojo.pos.domain.ShoppingItem;
 import tw.dojo.pos.service.ItemService;
 
-public class ItemControllerTest {
+public class ShoppingControllerTest {
 
     @InjectMocks
-    private ItemController itemController;
+    private ShoppingController itemController;
 
     @Mock
     private ItemService itemService;
@@ -38,13 +38,13 @@ public class ItemControllerTest {
     @Test
     public void should_calculate_item_when_given_input_list() {
         String barcode = "ITEM000001";
-        List<Item> expectedItems = new ArrayList<>();
-        when(itemService.calculateItems(asList(new Item(barcode, 1)))).thenReturn(expectedItems);
+        List<ShoppingItem> expectedItems = new ArrayList<>();
+        when(itemService.calculateItems(asList(new ShoppingItem(barcode, 1)))).thenReturn(expectedItems);
 
-        ResponseEntity<?> response = itemController.calculateItems(asList(barcode));
+        ResponseEntity<?> response = itemController.generateReceipt(asList(barcode));
 
         verify(itemService).calculateItems(anyObject());
         assertThat(response.getStatusCode(), is(OK));
-        assertThat(((ItemResponse) response.getBody()).getItems(), is(expectedItems));
+        assertThat(((Receipt) response.getBody()).getItems(), is(expectedItems));
     }
 }

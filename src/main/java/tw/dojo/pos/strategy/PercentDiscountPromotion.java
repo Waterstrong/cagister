@@ -5,8 +5,8 @@ import static java.util.Optional.ofNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import tw.dojo.pos.domain.Item;
 import tw.dojo.pos.domain.PercentDiscount;
+import tw.dojo.pos.domain.ShoppingItem;
 import tw.dojo.pos.repository.PercentDiscountRepository;
 
 @Component
@@ -18,7 +18,7 @@ public class PercentDiscountPromotion implements IPromotion {
     private PercentDiscountRepository promotionRepository;
 
     @Override
-    public Double calculateBenefit(Item item) {
+    public Double calculateBenefit(ShoppingItem item) {
         PercentDiscount percentDiscount =
                 ofNullable(promotionRepository.findOne(item.getBarcode()))
                 .orElse(new PercentDiscount(HUNDRED));

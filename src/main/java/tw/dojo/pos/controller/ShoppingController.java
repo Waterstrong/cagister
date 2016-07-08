@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tw.dojo.pos.domain.Item;
-import tw.dojo.pos.domain.ItemResponse;
+import tw.dojo.pos.domain.Receipt;
+import tw.dojo.pos.domain.ShoppingItem;
 import tw.dojo.pos.service.ItemService;
 
 @RestController
-public class ItemController {
+public class ShoppingController {
     @Autowired
     private ItemService itemService;
 
     @RequestMapping(method = POST, value = "/items")
-    public ResponseEntity<?> calculateItems(@RequestBody List<String> inputs) {
-        List<Item> calculatedItems = itemService.calculateItems(parse(inputs));
-        return new ResponseEntity<>(new ItemResponse(calculatedItems), OK);
+    public ResponseEntity<?> generateReceipt(@RequestBody List<String> inputs) {
+        List<ShoppingItem> shoppingItems = itemService.calculateItems(parse(inputs));
+        return new ResponseEntity<>(new Receipt(shoppingItems), OK);
     }
 }

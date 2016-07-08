@@ -15,9 +15,9 @@ import tw.dojo.pos.BaseIntegrationTest;
 import tw.dojo.pos.domain.Goods;
 import tw.dojo.pos.repository.GoodsRepository;
 
-public class ItemControllerIntegrationTest extends BaseIntegrationTest {
+public class ShoppingControllerIntegrationTest extends BaseIntegrationTest {
     @Autowired
-    private ItemController itemController;
+    private ShoppingController itemController;
 
     @Autowired
     private GoodsRepository goodsRepository;

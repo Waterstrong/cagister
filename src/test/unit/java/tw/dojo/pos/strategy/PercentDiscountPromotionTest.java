@@ -10,29 +10,33 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import tw.dojo.pos.domain.Item;
+import tw.dojo.pos.domain.Goods;
 import tw.dojo.pos.domain.PercentDiscount;
+import tw.dojo.pos.domain.ShoppingItem;
 import tw.dojo.pos.repository.PercentDiscountRepository;
 
 public class PercentDiscountPromotionTest {
 
+    private static final String BARCODE = "123456";
     @InjectMocks
     private PercentDiscountPromotion promotionService;
 
     @Mock
     private PercentDiscountRepository promotionRepository;
+    private Goods goods;
 
     @Before
     public void setUp() {
         initMocks(this);
+        goods = new Goods(BARCODE);
+        goods.setPrice(3.0);
     }
 
     @Test
     public void should_calculate_percent_discount_benefit() {
-        String barcode = "123456";
-        Item item = new Item(barcode, 3);
-        item.setPrice(3.0);
-        when(promotionRepository.findOne(barcode)).thenReturn(new PercentDiscount(95));
+        ShoppingItem item = new ShoppingItem(BARCODE, 3);
+        item.setGoods(goods);
+        when(promotionRepository.findOne(BARCODE)).thenReturn(new PercentDiscount(95));
 
         Double benefit = promotionService.calculateBenefit(item);
 
@@ -41,10 +45,9 @@ public class PercentDiscountPromotionTest {
 
     @Test
     public void should_discount_benefit_be_zero_if_goods_is_not_in_promotion() {
-        String barcode = "123456";
-        Item item = new Item(barcode, 3);
-        item.setPrice(3.0);
-        when(promotionRepository.findOne(barcode)).thenReturn(null);
+        ShoppingItem item = new ShoppingItem(BARCODE, 3);
+        item.setGoods(goods);
+        when(promotionRepository.findOne(BARCODE)).thenReturn(null);
 
         Double benefit = promotionService.calculateBenefit(item);
 

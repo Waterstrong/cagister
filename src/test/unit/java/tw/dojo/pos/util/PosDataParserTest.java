@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import tw.dojo.pos.domain.Item;
+import tw.dojo.pos.domain.ShoppingItem;
 
 public class PosDataParserTest {
 
@@ -24,7 +24,7 @@ public class PosDataParserTest {
                 "ITEM000005",
                 "ITEM000005",
                 "ITEM000005");
-        List<Item> items = PosDataParser.parse(inputs);
+        List<ShoppingItem> items = PosDataParser.parse(inputs);
 
         assertThat(items.size(), is(3));
         assertItem(items.get(0), "ITEM000001", 5);
@@ -32,7 +32,7 @@ public class PosDataParserTest {
         assertItem(items.get(2), "ITEM000005", 3);
     }
 
-    private void assertItem(Item actualItem, String expectedBarcode, Integer expectedAmount) {
+    private void assertItem(ShoppingItem actualItem, String expectedBarcode, Integer expectedAmount) {
         assertThat(actualItem.getBarcode(), is(expectedBarcode));
         assertThat(actualItem.getAmount(), is(expectedAmount));
     }

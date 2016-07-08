@@ -1,7 +1,7 @@
 package tw.dojo.pos.strategy;
 
-import tw.dojo.pos.domain.Item;
+import tw.dojo.pos.domain.ShoppingItem;
 
 public interface IPromotion {
-    Double calculateBenefit(final Item item);
+    Double calculateBenefit(final ShoppingItem item);
 }
