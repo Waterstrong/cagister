@@ -27,8 +27,8 @@ public class PosDataParser {
             nextAmount = (nextAmount == null) ? 0 : nextAmount;
             itemMapper.put(barcode, item.getAmount() + nextAmount);
         });
-        return itemMapper.keySet().stream()
-                .map(key -> new ShoppingItem(key, itemMapper.get(key)))
+        return itemMapper.entrySet().stream()
+                .map(entry -> new ShoppingItem(entry.getKey(), entry.getValue()))
                 .collect(toList());
     }
 
