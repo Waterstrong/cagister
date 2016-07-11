@@ -12,6 +12,11 @@ spring:
     hibernate:
       ddl-auto: validate
 
+security:
+  user:
+    name: apiuser
+    password: password
+
 flyway: # Flyway properties
   url: ${spring.datasource.url}
   user: ${spring.datasource.username}
