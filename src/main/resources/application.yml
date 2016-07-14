@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   context-path: /cagister
 
 spring:
@@ -7,6 +7,7 @@ spring:
     url: jdbc:h2:./.tmp/cagisterdb
     username: sa
     password:
+#    data: classpath:/load-test-data.sql
   jpa: # JPA configuration
     show-sql: true
     hibernate:
